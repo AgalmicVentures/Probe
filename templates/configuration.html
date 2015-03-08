@@ -11,7 +11,7 @@
 
 	<button class="btn btn-success" onclick="javascript:refresh()">
 		<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
-		Refresh
+		Refresh All
 	</button>
 	<input id="autoRefreshCheckbox" type="checkbox" onclick="javascript:autoRefresh()"> Automatic
 
@@ -29,24 +29,37 @@
 	</button>
 	</form>
 
-	<h3><tt>uname</tt></h3><pre><div id="raw_uname"></div></pre>
+	<h3><tt>uname</tt>
+		<button class="btn btn-success" onclick="javascript:refreshUname()"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
+	</h3>
+	<pre><div id="raw_uname"></div></pre>
 
 	<div class="row">
 		<div class="col-md-6">
-			<h3><tt>ifconfig</tt></h3><pre><div id="raw_ifconfig"></div></pre>
+			<h3><tt>ifconfig</tt>
+				<button class="btn btn-success" onclick="javascript:refreshIfconfig()"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
+			</h3>
+			<pre><div id="raw_ifconfig"></div></pre>
 		</div>
 		<div class="col-md-6">
-			<h3><tt>mount</tt></h3><pre><div id="raw_mount"></div></pre>
+			<h3><tt>mount</tt>
+				<button class="btn btn-success" onclick="javascript:refreshMount()"><span class="glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
+			</h3>
+			<pre><div id="raw_mount"></div></pre>
 		</div>
 	</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<script>
+		function refreshUname() { $('#raw_uname').load('/raw/uname'); }
+		function refreshIfconfig() { $('#raw_ifconfig').load('/raw/ifconfig'); }
+		function refreshMount() { $('#raw_mount').load('/raw/mount'); }
+
 		function refresh() {
-			$('#raw_uname').load('/raw/uname');
-			$('#raw_ifconfig').load('/raw/ifconfig');
-			$('#raw_mount').load('/raw/mount');
+			refreshUname();
+			refreshIfconfig();
+			refreshMount();
 		}
 
 		function autoRefresh() {
