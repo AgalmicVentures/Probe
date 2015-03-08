@@ -1,0 +1,47 @@
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+
+	<title>Probe [%(hostname)s]</title>
+</head>
+<body>
+<div class="container" style="width: 90%%">
+	<h1>Probe - Help [<tt>%(hostname)s</tt>]</h1>
+
+	<form action="/" style="display: inline; padding-left: 20px">
+	<button class="btn btn-primary">
+		<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+		Status
+	</button>
+	</form>
+
+	<form action="/configuration" style="display: inline; padding-left: 20px">
+	<button class="btn btn-info">
+		<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+		Configuration
+	</button>
+	</form>
+
+	<h3>API's</h3>
+	<ul>
+		<li>JSON<ul>
+			<li><a href="/json/hardware">Hardware</a></li>
+			<li><a href="/json/software">Software</a></li>
+			<li><a href="/json/status">Status</a></li>
+		</ul></li>
+		<li>Raw<ul>
+			<li><a href="/raw/date">date</a></li>
+			<li><a href="/raw/df">df</a></li>
+			<li><a href="/raw/ifconfig">ifconfig</a></li>
+			<li><a href="/raw/iostat">iostat</a></li>
+			<li><a href="/raw/mount">mount</a></li>
+			<li><a href="/raw/netstatTcp">netstat (TCP)</a></li>
+			<li><a href="/raw/netstatUdp">netstat (UDP)</a></li>
+			<li><a href="/raw/uname">uname</a></li>
+			<li><a href="/raw/uptime">uptime</a></li>
+		</ul></li>
+	</ul>
+</div>
+</body>
+</html>
