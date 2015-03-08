@@ -13,6 +13,7 @@
 		<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
 		Refresh
 	</button>
+	<input id="autoRefreshCheckbox" type="checkbox" onclick="javascript:autoRefresh()"> Automatic
 
 	<form action="/" style="display: inline; padding-left: 20px">
 	<button class="btn btn-primary">
@@ -46,6 +47,13 @@
 			$('#raw_uname').load('/raw/uname');
 			$('#raw_ifconfig').load('/raw/ifconfig');
 			$('#raw_mount').load('/raw/mount');
+		}
+
+		function autoRefresh() {
+			refresh();
+			if ($('#autoRefreshCheckbox').prop('checked')) {
+				setTimeout(autoRefresh, 5000);
+			}
 		}
 
 		refresh();

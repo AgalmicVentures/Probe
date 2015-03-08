@@ -13,6 +13,7 @@
 		<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
 		Refresh
 	</button>
+	<input id="autoRefreshCheckbox" type="checkbox" onclick="javascript:autoRefresh()"> Automatic
 
 	<form action="/configuration" style="display: inline; padding-left: 20px">
 	<button class="btn btn-info">
@@ -51,6 +52,13 @@
 			$('#raw_iostat').load('/raw/iostat');
 			$('#raw_netstat_udp').load('/raw/netstatUdp');
 			$('#raw_netstat_tcp').load('/raw/netstatTcp');
+		}
+
+		function autoRefresh() {
+			refresh();
+			if ($('#autoRefreshCheckbox').prop('checked')) {
+				setTimeout(autoRefresh, 5000);
+			}
 		}
 
 		refresh();
