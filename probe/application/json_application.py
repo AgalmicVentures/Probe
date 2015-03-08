@@ -9,6 +9,13 @@ class ProbeJsonApplication:
 		pass
 
 	@cherrypy.expose
+	def default(self, *args, **kwargs):
+		cherrypy.response.headers['Content-Type'] = 'application/json'
+		return json.dumps({
+			'error': 'API not found',
+		}).encode('utf8')
+
+	@cherrypy.expose
 	def hardware(self):
 		cherrypy.response.headers['Content-Type'] = 'application/json'
 		return json.dumps({
