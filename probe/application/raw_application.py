@@ -12,10 +12,6 @@ class ProbeRawApplication:
 		self.isMac = os.uname().sysname == 'Darwin'
 
 	@cherrypy.expose
-	def index(self):
-		return '<html><body><h1>Probe - Raw API</h1></body></html>'
-
-	@cherrypy.expose
 	def date(self):
 		cherrypy.response.headers['Content-Type'] = 'text/plain'
 		return getOutput('date')
@@ -34,6 +30,11 @@ class ProbeRawApplication:
 	def iostat(self):
 		cherrypy.response.headers['Content-Type'] = 'text/plain'
 		return getOutput('iostat')
+
+	@cherrypy.expose
+	def mount(self):
+		cherrypy.response.headers['Content-Type'] = 'text/plain'
+		return getOutput('mount')
 
 	@cherrypy.expose
 	def netstatTcp(self):
