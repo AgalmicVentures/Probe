@@ -1,5 +1,6 @@
 
 import cherrypy
+import os
 import subprocess
 
 def getOutput(command):
@@ -8,8 +9,7 @@ def getOutput(command):
 class ProbeRawApplication:
 
 	def __init__(self):
-		#TODO
-		pass
+		self.isMac = os.uname().sysname == 'Darwin'
 
 	@cherrypy.expose
 	def index(self):
@@ -29,6 +29,16 @@ class ProbeRawApplication:
 	def iostat(self):
 		cherrypy.response.headers['Content-Type'] = 'text/plain'
 		return getOutput('iostat')
+
+	@cherrypy.expose
+	def netstatTcp(self):
+		cherrypy.response.headers['Content-Type'] = 'text/plain'
+		return getOutput('netstat -s -p tcp' if self.isMac else 'netstat -s -t')
+
+	@cherrypy.expose
+	def netstatUdp(self):
+		cherrypy.response.headers['Content-Type'] = 'text/plain'
+		return getOutput('netstat -s -p udp' if self.isMac else 'netstat -s -u')
 
 	@cherrypy.expose
 	def uname(self):
