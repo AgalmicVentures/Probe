@@ -31,6 +31,11 @@ class ProbeRawApplication:
 		return getOutput('iostat')
 
 	@cherrypy.expose
+	def uname(self):
+		cherrypy.response.headers['Content-Type'] = 'text/plain'
+		return getOutput('uname -a')
+
+	@cherrypy.expose
 	def uptime(self):
 		cherrypy.response.headers['Content-Type'] = 'text/plain'
 		return getOutput('uptime')
