@@ -15,11 +15,20 @@ class ProbeApplication:
 		with io.open('./templates/index.html') as indexTemplateFile:
 			self.indexTemplate = indexTemplateFile.read()
 
+		with io.open('./templates/configuration.html') as configurationTemplateFile:
+			self.configurationTemplate = configurationTemplateFile.read()
+
 		self.hostname = socket.gethostname()
 
 	@cherrypy.expose
 	def index(self):
 		return self.indexTemplate % {
+			'hostname': self.hostname,
+		}
+
+	@cherrypy.expose
+	def configuration(self):
+		return self.configurationTemplate % {
 			'hostname': self.hostname,
 		}
 

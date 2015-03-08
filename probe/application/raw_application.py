@@ -16,6 +16,11 @@ class ProbeRawApplication:
 		return '<html><body><h1>Probe - Raw API</h1></body></html>'
 
 	@cherrypy.expose
+	def date(self):
+		cherrypy.response.headers['Content-Type'] = 'text/plain'
+		return getOutput('date')
+
+	@cherrypy.expose
 	def df(self):
 		cherrypy.response.headers['Content-Type'] = 'text/plain'
 		return getOutput('df -h')
