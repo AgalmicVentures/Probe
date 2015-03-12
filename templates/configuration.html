@@ -10,28 +10,39 @@
 	<title>Probe - Configuration [%(hostname)s]</title>
 </head>
 <body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#"><span class="glyphicon glyphicon-cloud-download" aria-hidden="true" style="font-size: 0.8em"></span> Probe [<tt>%(hostname)s</tt>]</a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+			<ul class="nav navbar-nav">
+				<li><a href="/">Status</a></li>
+				<li class="active"><a href="#">Configuration</a></li>
+				<li><a href="/help">Help</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+<br />
+<br />
+<br />
+
 <div class="container" style="width: 90%%">
-	<h1>Probe - Configuration [<tt>%(hostname)s</tt>]</h1>
+	<h1>Configuration</h1>
 
 	<button class="btn btn-success" onclick="javascript:refresh()">
 		<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
 		Refresh All
 	</button>
 	<input id="autoRefreshCheckbox" type="checkbox" onclick="javascript:autoRefresh()"> Automatic
-
-	<form action="/" style="display: inline; padding-left: 20px">
-	<button class="btn btn-primary">
-		<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-		Status
-	</button>
-	</form>
-
-	<form action="/help" style="display: inline; padding-left: 20px">
-	<button class="btn btn-warning">
-		<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
-		Help
-	</button>
-	</form>
 
 	<h3><tt>uname</tt>
 		<span class="glyphicon glyphicon-refresh refreshButton" aria-hidden="true" onclick="javascript:refreshUname()"></span>
