@@ -2,28 +2,29 @@
 import cherrypy
 from datetime import datetime
 import json
+import os
 import psutil
+
+def jsonResponse(value):
+	cherrypy.response.headers['Content-Type'] = 'application/json'
+	return json.dumps(value, indent=4, sort_keys=True).encode('utf8')
 
 class ProbeJsonApplication:
 
-	def __init__(self):
-		pass
-
 	@cherrypy.expose
 	def default(self, *args, **kwargs):
-		cherrypy.response.headers['Content-Type'] = 'application/json'
-		return json.dumps({
+		return jsonResponse({
 			'error': 'API not found',
-		}).encode('utf8')
+		})
 
 	@cherrypy.expose
 	def hardware(self):
-		cherrypy.response.headers['Content-Type'] = 'application/json'
-		return json.dumps({
+		return jsonResponse({
 			'bootTime': datetime.fromtimestamp(psutil.boot_time()).strftime('%Y-%m-%d %H:%M:%S'),
 			'cpuCores': psutil.NUM_CPUS,
+			'isMac': os.uname().sysname == 'Darwin',
 			'ram': psutil.TOTAL_PHYMEM,
-		}, indent=4, sort_keys=True).encode('utf8')
+		})
 
 	@cherrypy.expose
 	def status(self):
@@ -34,8 +35,7 @@ class ProbeJsonApplication:
 		swapMemory = psutil.swap_memory()
 		network = psutil.net_io_counters()
 
-		cherrypy.response.headers['Content-Type'] = 'application/json'
-		return json.dumps({
+		return jsonResponse({
 			'time': now.strftime('%Y-%m-%d %H:%M:%S'),
 			'uptime': int((now - bootTime).total_seconds()),
 			'cpuPercent': psutil.cpu_percent(interval=0.1),
@@ -64,4 +64,4 @@ class ProbeJsonApplication:
 				'droppedIn': network.dropin,
 				'droppedOut': network.dropout,
 			},
-		}, indent=4, sort_keys=True).encode('utf8')
+		})
