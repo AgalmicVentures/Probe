@@ -6,4 +6,4 @@ if [[ $? -eq 1 ]]; then
 fi
 
 PID=`echo $PROCESSES | awk '{print $1}'`
-kill $PID
+kill $@ $PID
