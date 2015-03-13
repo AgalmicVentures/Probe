@@ -6,12 +6,12 @@ import sys
 import application
 
 def main():
-	print('Starting up')
+	print('Starting up Probe...')
 
 	probe = application.ProbeApplication()
 	cherrypy.quickstart(probe)
 
-	print('Shutting down')
+	print('Shutting down Probe...')
 	return 0
 
 if __name__ == '__main__':
