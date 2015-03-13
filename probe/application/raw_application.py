@@ -6,6 +6,10 @@ import subprocess
 def getOutput(command):
 	return subprocess.Popen(command.split(' '), stdout=subprocess.PIPE).communicate()[0]
 
+def commandResponse(command):
+	cherrypy.response.headers['Content-Type'] = 'text/plain'
+	return getOutput(command)
+
 class ProbeRawApplication:
 
 	def __init__(self):
@@ -13,45 +17,36 @@ class ProbeRawApplication:
 
 	@cherrypy.expose
 	def date(self):
-		cherrypy.response.headers['Content-Type'] = 'text/plain'
-		return getOutput('date')
+		return commandResponse('date')
 
 	@cherrypy.expose
 	def df(self):
-		cherrypy.response.headers['Content-Type'] = 'text/plain'
-		return getOutput('df -h')
+		return commandResponse('df -h')
 
 	@cherrypy.expose
 	def ifconfig(self):
-		cherrypy.response.headers['Content-Type'] = 'text/plain'
-		return getOutput('ifconfig')
+		return commandResponse('ifconfig')
 
 	@cherrypy.expose
 	def iostat(self):
-		cherrypy.response.headers['Content-Type'] = 'text/plain'
-		return getOutput('iostat')
+		return commandResponse('iostat')
 
 	@cherrypy.expose
 	def mount(self):
-		cherrypy.response.headers['Content-Type'] = 'text/plain'
-		return getOutput('mount')
+		return commandResponse('mount')
 
 	@cherrypy.expose
 	def netstatTcp(self):
-		cherrypy.response.headers['Content-Type'] = 'text/plain'
-		return getOutput('netstat -s -p tcp' if self.isMac else 'netstat -s -t')
+		return commandResponse('netstat -s -p tcp' if self.isMac else 'netstat -s -t')
 
 	@cherrypy.expose
 	def netstatUdp(self):
-		cherrypy.response.headers['Content-Type'] = 'text/plain'
-		return getOutput('netstat -s -p udp' if self.isMac else 'netstat -s -u')
+		return commandResponse('netstat -s -p udp' if self.isMac else 'netstat -s -u')
 
 	@cherrypy.expose
 	def uname(self):
-		cherrypy.response.headers['Content-Type'] = 'text/plain'
-		return getOutput('uname -a')
+		return commandResponse('uname -a')
 
 	@cherrypy.expose
 	def uptime(self):
-		cherrypy.response.headers['Content-Type'] = 'text/plain'
-		return getOutput('uptime')
+		return commandResponse('uptime')
