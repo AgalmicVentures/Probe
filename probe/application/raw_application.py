@@ -25,11 +25,11 @@ class ProbeRawApplication:
 
 	@cherrypy.expose
 	def gitLog(self):
-		return commandResponse('git log -5')
+		return commandResponse('git log --graph -10')
 
 	@cherrypy.expose
-	def gitShow(self):
-		return commandResponse('git show')
+	def gitRevision(self):
+		return commandResponse('git rev-parse HEAD')
 
 	@cherrypy.expose
 	def ifconfig(self):
