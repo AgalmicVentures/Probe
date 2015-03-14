@@ -30,24 +30,28 @@ class ProbeApplication:
 	def index(self):
 		return self.indexTemplate % {
 			'hostname': self.hostname,
+			'title': 'Status',
 		}
 
 	@cherrypy.expose
 	def configuration(self):
 		return self.configurationTemplate % {
 			'hostname': self.hostname,
+			'title': 'Configuration',
 		}
 
 	@cherrypy.expose
 	def help(self):
 		return self.helpTemplate % {
 			'hostname': self.hostname,
+			'title': 'Help',
 		}
 
 	@cherrypy.expose
 	def admin(self):
 		return self.adminTemplate % {
 			'hostname': self.hostname,
+			'title': 'Admin',
 		}
 
 	@cherrypy.expose
