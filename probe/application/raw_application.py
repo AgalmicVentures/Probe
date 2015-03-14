@@ -24,6 +24,14 @@ class ProbeRawApplication:
 		return commandResponse('df -h')
 
 	@cherrypy.expose
+	def gitLog(self):
+		return commandResponse('git log -5')
+
+	@cherrypy.expose
+	def gitShow(self):
+		return commandResponse('git show')
+
+	@cherrypy.expose
 	def ifconfig(self):
 		return commandResponse('ifconfig')
 

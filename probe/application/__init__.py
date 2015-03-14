@@ -21,6 +21,9 @@ class ProbeApplication:
 		with io.open('./templates/help.html') as helpTemplateFile:
 			self.helpTemplate = helpTemplateFile.read()
 
+		with io.open('./templates/admin.html') as adminTemplateFile:
+			self.adminTemplate = adminTemplateFile.read()
+
 		self.hostname = socket.gethostname()
 
 	@cherrypy.expose
@@ -38,6 +41,12 @@ class ProbeApplication:
 	@cherrypy.expose
 	def help(self):
 		return self.helpTemplate % {
+			'hostname': self.hostname,
+		}
+
+	@cherrypy.expose
+	def admin(self):
+		return self.adminTemplate % {
 			'hostname': self.hostname,
 		}
 
