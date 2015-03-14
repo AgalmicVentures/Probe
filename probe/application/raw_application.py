@@ -56,5 +56,9 @@ class ProbeRawApplication:
 		return commandResponse('uname -a')
 
 	@cherrypy.expose
+	def update(self):
+		return commandResponse('git pull')
+
+	@cherrypy.expose
 	def uptime(self):
 		return commandResponse('uptime')

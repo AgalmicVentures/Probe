@@ -70,15 +70,10 @@
 			refreshGitLog();
 		}
 
-		function autoRefresh() {
-			refresh();
-			if ($('#autoRefreshCheckbox').prop('checked')) {
-				setTimeout(autoRefresh, 5000);
-			}
-		}
-
 		function update() {
-			//TODO
+			$.ajax({url: '/raw/update', success: function(result) {
+				refresh();
+			}});
 		}
 
 		refresh();
