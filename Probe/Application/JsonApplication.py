@@ -1,6 +1,6 @@
 
 import cherrypy
-from datetime import datetime
+import datetime
 import json
 import os
 import psutil
@@ -20,7 +20,7 @@ class ProbeJsonApplication:
 	@cherrypy.expose
 	def hardware(self):
 		return jsonResponse({
-			'bootTime': datetime.fromtimestamp(psutil.boot_time()).strftime('%Y-%m-%d %H:%M:%S'),
+			'bootTime': datetime.datetime.fromtimestamp(psutil.boot_time()).strftime('%Y-%m-%d %H:%M:%S'),
 			'cpuCores': psutil.NUM_CPUS,
 			'isMac': os.uname().sysname == 'Darwin',
 			'ram': psutil.TOTAL_PHYMEM,
@@ -28,8 +28,8 @@ class ProbeJsonApplication:
 
 	@cherrypy.expose
 	def status(self):
-		bootTime = datetime.fromtimestamp(psutil.boot_time())
-		now = datetime.now()
+		bootTime = datetime.datetime.fromtimestamp(psutil.boot_time())
+		now = datetime.datetime.now()
 
 		virtualMemory = psutil.virtual_memory()
 		swapMemory = psutil.swap_memory()

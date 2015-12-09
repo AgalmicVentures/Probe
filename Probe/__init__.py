@@ -3,7 +3,7 @@
 import cherrypy
 import sys
 
-import application
+import Application
 
 def main():
 	print('Starting up Probe...')
@@ -13,7 +13,7 @@ def main():
 		'server.socket_port': 27182,
 	})
 
-	probe = application.ProbeApplication()
+	probe = Application.ProbeApplication()
 	cherrypy.quickstart(probe)
 
 	print('Shutting down Probe...')

@@ -13,7 +13,7 @@ def commandResponse(command):
 class ProbeRawApplication:
 
 	def __init__(self):
-		self.isMac = os.uname().sysname == 'Darwin'
+		self._isMac = os.uname().sysname == 'Darwin'
 
 	@cherrypy.expose
 	def date(self):
@@ -45,11 +45,11 @@ class ProbeRawApplication:
 
 	@cherrypy.expose
 	def netstatTcp(self):
-		return commandResponse('netstat -s -p tcp' if self.isMac else 'netstat -s -t')
+		return commandResponse('netstat -s -p tcp' if self._isMac else 'netstat -s -t')
 
 	@cherrypy.expose
 	def netstatUdp(self):
-		return commandResponse('netstat -s -p udp' if self.isMac else 'netstat -s -u')
+		return commandResponse('netstat -s -p udp' if self._isMac else 'netstat -s -u')
 
 	@cherrypy.expose
 	def uname(self):
