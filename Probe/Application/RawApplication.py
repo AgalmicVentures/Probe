@@ -37,7 +37,7 @@ class ProbeRawApplication:
 
 	@cherrypy.expose
 	def ifconfig(self):
-		return commandResponse('ifconfig')
+		return commandResponse('/sbin/ifconfig')
 
 	@cherrypy.expose
 	def iostat(self):
