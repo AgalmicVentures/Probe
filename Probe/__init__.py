@@ -8,13 +8,8 @@ import Application
 def main():
 	print('Starting up Probe...')
 
-	cherrypy.config.update({
-		'server.socket_host': '0.0.0.0',
-		'server.socket_port': 27182,
-	})
-
 	probe = Application.ProbeApplication()
-	cherrypy.quickstart(probe)
+	cherrypy.quickstart(probe, config='server.conf')
 
 	print('Shutting down Probe...')
 	return 0
