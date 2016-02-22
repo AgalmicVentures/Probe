@@ -6,7 +6,6 @@ import subprocess
 def getOutput(command):
 	return subprocess.Popen(command.split(' '), stdout=subprocess.PIPE).communicate()[0]
 
-#TODO: replace with proper HTML encoding
 def htmlEncode(s):
 	return s.decode('utf-8').replace('&', '&amp;').replace('<', '&lt;').replace('>', '&gt;').replace('"', '&quot;').replace("'", '&squot;')
 
