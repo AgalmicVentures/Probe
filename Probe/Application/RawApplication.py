@@ -55,6 +55,10 @@ class ProbeRawApplication:
 		return commandResponse('netstat -s -p udp' if self._isMac else 'netstat -s -u')
 
 	@cherrypy.expose
+	def numactlHardware(self):
+		return commandResponse('numactl -h') if not self._isMac else 'numactl not available on Mac'
+
+	@cherrypy.expose
 	def uname(self):
 		return commandResponse('uname -a')
 
