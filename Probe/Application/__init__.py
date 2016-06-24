@@ -6,7 +6,7 @@ import socket
 import Application.JsonApplication
 import Application.RawApplication
 
-class ProbeApplication:
+class ProbeApplication(object):
 
 	def __init__(self):
 		self.json = JsonApplication.ProbeJsonApplication()

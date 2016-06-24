@@ -9,7 +9,7 @@ def jsonResponse(value):
 	cherrypy.response.headers['Content-Type'] = 'application/json'
 	return json.dumps(value, indent=4, sort_keys=True).encode('utf8')
 
-class ProbeJsonApplication:
+class ProbeJsonApplication(object):
 
 	@cherrypy.expose
 	def default(self, *args, **kwargs):

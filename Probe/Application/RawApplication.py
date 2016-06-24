@@ -13,7 +13,7 @@ def commandResponse(command):
 	cherrypy.response.headers['Content-Type'] = 'text/plain'
 	return htmlEncode(getOutput(command))
 
-class ProbeRawApplication:
+class ProbeRawApplication(object):
 
 	def __init__(self):
 		self._isMac = os.uname().sysname == 'Darwin'
