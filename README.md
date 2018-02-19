@@ -19,32 +19,54 @@ Returns metadata about the hardware configuration of the host:
 Returns the status of the host:
 
     {
-        "cpuPercent": 6.2,
+        "battery": null,
+        "cpuPercent": 0.0,
+        "cpuStats": {
+            "contextSwitches": 5488987545,
+            "interrupts": 1518314732,
+            "softInterrupts": 612327022,
+            "syscalls": 0
+        },
+        "cpuTimes": {
+            "idle": 63356063.21,
+            "nice": 249.94,
+            "system": 69785.35,
+            "user": 209150.38
+        },
+        "diskIoCounters": {
+            "readBytes": 81790133248,
+            "readCount": 611528,
+            "readTime": 502056,
+            "writeBytes": 533914533888,
+            "writeCount": 15838132,
+            "writeTime": 47048748
+        },
+        "entropyAvailable": 822,
         "network": {
-            "bytesReceived": 1263493884,
-            "bytesSent": 28357683,
+            "bytesReceived": 36782677828,
+            "bytesSent": 78145677942,
             "droppedIn": 0,
             "droppedOut": 0,
             "errorIn": 0,
             "errorOut": 0,
-            "packetsReceived": 995334,
-            "packetsSent": 378404
+            "packetsReceived": 56417513,
+            "packetsSent": 70042342
         },
         "swapMemory": {
             "free": 0,
-            "in": 8954613760,
+            "in": 0,
             "out": 0,
             "percent": 0,
             "total": 0,
             "used": 0
         },
-        "time": "2015-04-01 18:56:09",
-        "uptime": 9753,
+        "time": "2018-02-19 17:55:07",
+        "uptime": 3185738,
         "virtualMemory": {
-            "available": 26116472832,
-            "free": 24501407744,
-            "percent": 24.0,
-            "total": 34359738368,
-            "used": 9848811520
+            "available": 118081093632,
+            "free": 11270242304,
+            "percent": 12.6,
+            "total": 135070191616,
+            "used": 16359809024
         }
     }
