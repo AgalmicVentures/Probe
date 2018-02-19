@@ -55,9 +55,17 @@ class ProbeJsonApplication(object):
 		swapMemory = psutil.swap_memory()
 		network = psutil.net_io_counters()
 
+		entropyAvailable = None
+		try:
+			with open('/proc/sys/kernel/random/entropy_avail') as entropyAvailableFile:
+				entropyAvailable = int(entropyAvailableFile.read().strip())
+		except (IOError, ValueError):
+			pass
+
 		return jsonResponse({
 			'time': now.strftime('%Y-%m-%d %H:%M:%S'),
 			'uptime': int((now - bootTime).total_seconds()),
+			'entropyAvailable': entropyAvailable,
 			'cpuPercent': psutil.cpu_percent(interval=0.1),
 			'virtualMemory': {
 				'total': virtualMemory.total,

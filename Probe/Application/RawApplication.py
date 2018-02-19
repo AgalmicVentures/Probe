@@ -47,6 +47,10 @@ class ProbeRawApplication(object):
 		return commandResponse('df -h')
 
 	@cherrypy.expose
+	def entropyAvail(self):
+		return commandResponse('cat /proc/sys/kernel/random/entropy_avail')
+
+	@cherrypy.expose
 	def gitLog(self):
 		return commandResponse('git log --graph -10')
 

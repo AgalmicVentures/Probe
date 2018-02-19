@@ -58,6 +58,11 @@
 			</h3>
 			<pre><div id="raw_uptime"></div></pre>
 
+			<h3><tt>cat /proc/sys/kernel/random/entropy_avail</tt>
+				<span class="glyphicon glyphicon-refresh refreshButton" aria-hidden="true" onclick="javascript:refreshEntropyAvail()"></span>
+			</h3>
+			<pre><div id="entropy_avail"></div></pre>
+
 			<h3><tt>df</tt>
 				<span class="glyphicon glyphicon-refresh refreshButton" aria-hidden="true" onclick="javascript:refreshDf()"></span>
 			</h3>
@@ -85,6 +90,7 @@
 	<script>
 		function refreshDate() { $('#raw_date').load('/raw/date'); }
 		function refreshUptime() { $('#raw_uptime').load('/raw/uptime'); }
+		function refreshEntropyAvail() { $('#raw_uptime').load('/raw/entropyAvail'); }
 		function refreshDf() { $('#raw_df').load('/raw/df'); }
 		function refreshIostat() { $('#raw_iostat').load('/raw/iostat'); }
 		function refreshNetstatTcp() { $('#raw_netstat_tcp').load('/raw/netstatTcp'); }
