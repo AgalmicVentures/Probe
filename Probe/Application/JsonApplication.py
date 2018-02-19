@@ -51,8 +51,12 @@ class ProbeJsonApplication(object):
 		bootTime = datetime.datetime.fromtimestamp(psutil.boot_time())
 		now = datetime.datetime.now()
 
+		battery = psutil.sensors_battery()
+		cpuStats = psutil.cpu_stats()
+		cpuTimes = psutil.cpu_times()
 		virtualMemory = psutil.virtual_memory()
 		swapMemory = psutil.swap_memory()
+		diskIoCounters = psutil.disk_io_counters()
 		network = psutil.net_io_counters()
 
 		entropyAvailable = None
@@ -66,7 +70,24 @@ class ProbeJsonApplication(object):
 			'time': now.strftime('%Y-%m-%d %H:%M:%S'),
 			'uptime': int((now - bootTime).total_seconds()),
 			'entropyAvailable': entropyAvailable,
+			'battery': None if battery is None else {
+				'percent': battery.percent,
+				'pluggedIn': battery.power_plugged,
+				'secsleft': battery.secsleft,
+			},
 			'cpuPercent': psutil.cpu_percent(interval=0.1),
+			'cpuStats': {
+				'contextSwitches': cpuStats.ctx_switches,
+				'interrupts': cpuStats.interrupts,
+				'softInterrupts': cpuStats.soft_interrupts,
+				'syscalls': cpuStats.syscalls,
+			},
+			'cpuTimes': {
+				'idle': cpuTimes.idle,
+				'nice': cpuTimes.nice,
+				'system': cpuTimes.system,
+				'user': cpuTimes.user,
+			},
 			'virtualMemory': {
 				'total': virtualMemory.total,
 				'available': virtualMemory.available,
@@ -81,6 +102,14 @@ class ProbeJsonApplication(object):
 				'percent': swapMemory.percent,
 				'in': swapMemory.sin,
 				'out': swapMemory.sout,
+			},
+			'diskIoCounters': {
+				'readCount': diskIoCounters.read_count,
+				'writeCount': diskIoCounters.write_count,
+				'readBytes': diskIoCounters.read_bytes,
+				'writeBytes': diskIoCounters.write_bytes,
+				'readTime': diskIoCounters.read_time,
+				'writeTime': diskIoCounters.write_time,
 			},
 			'network': {
 				'bytesSent': network.bytes_sent,
