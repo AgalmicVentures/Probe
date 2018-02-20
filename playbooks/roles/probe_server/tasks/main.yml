@@ -19,6 +19,20 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+- name: Updating apt cache if the last one is more than 3600 seconds ago
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  tags:
+    - probe
+
+- name: Installing supporting packages
+  apt:
+    name: [numactl]
+    state: latest
+  tags:
+    - probe
+
 - name: Creating account
   user:
     name: probe
