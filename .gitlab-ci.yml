@@ -25,13 +25,14 @@ before_script:
   - pip3 install -r requirements.txt
 
 stages:
-  - test
+  - functional_test
   - stop
 
-test_job:
-  stage: test
+functional_test_job:
+  stage: functional_test
   script:
     - ./start.sh
+    - curl http://localhost:27182/json/status
     - ./stop.sh
   only:
     - master
