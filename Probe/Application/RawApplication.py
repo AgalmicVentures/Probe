@@ -80,7 +80,7 @@ class ProbeRawApplication(object):
 
 	@cherrypy.expose
 	def numactlHardware(self):
-		return commandResponse('numactl -h') if not self._isMac else 'numactl not available on Mac'
+		return commandResponse('numactl -H') if not self._isMac else 'numactl not available on Mac'
 
 	@cherrypy.expose
 	def uname(self):
