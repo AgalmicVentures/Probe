@@ -21,6 +21,7 @@
 
 import cherrypy
 import os
+import re
 import subprocess
 
 def getOutput(command):
@@ -44,7 +45,7 @@ class ProbeRawApplication(object):
 
 	@cherrypy.expose
 	def df(self):
-		return commandResponse('df -h | cut -b 15- | sed \'s/[^ ]*$/XXXXXXXX/\'')
+		return re.sub('([/][a-zA-Z0-9/_-]*)+', 'XXXXXXXX', commandResponse('df -h'))
 
 	@cherrypy.expose
 	def entropyAvail(self):
@@ -60,7 +61,8 @@ class ProbeRawApplication(object):
 
 	@cherrypy.expose
 	def ifconfig(self):
-		return commandResponse('/sbin/ifconfig | sed \'s/ [0-9]*[.][0-9.]*/ XXX.XXX.XXX.XXX/g\' | sed \'s/ [0-9a-f]*[:][0-9a-f:]*/ XXXXXXXX/g\'')
+		return re.sub(' [0-9]*[.][0-9.]*', ' XXX.XXX.XXX.XXX',
+			re.sub(' [0-9a-f]*[:][0-9a-f:]*', ' XXXXXXXX', commandResponse('/sbin/ifconfig')))
 
 	@cherrypy.expose
 	def iostat(self):
