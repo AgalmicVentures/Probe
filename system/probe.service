@@ -1,4 +1,3 @@
-#!/bin/bash
 
 # Copyright (c) 2015-2018 Agalmic Ventures LLC (www.agalmicventures.com)
 #
@@ -20,10 +19,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-set -e
-#XXX: Disabled so the virtual environment will work (yes, this is ridiculous)
-#set -u
+[Unit]
+Description=Probe Service
+After=network.target
 
-./stop.sh
-sleep 1
-./start.sh
+[Service]
+Type=forking
+User=probe
+Group=probe
+#EnvironmentFile=/etc/probe/probe.conf
+WorkingDirectory=/home/probe/Code/OpenSource/Probe
+ExecStart=/bin/sh -c '/home/probe/Code/OpenSource/Probe/start.sh'
+ExecStop=/bin/sh -c '/home/probe/Code/OpenSource/Probe/stop.sh'
+ExecReload=/bin/sh -c '/home/probe/Code/OpenSource/Probe/restart.sh'
+
+[Install]
+WantedBy=multi-user.target
