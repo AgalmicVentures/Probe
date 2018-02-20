@@ -44,7 +44,7 @@ class ProbeRawApplication(object):
 
 	@cherrypy.expose
 	def df(self):
-		return commandResponse('df -h')
+		return commandResponse('df -h | cut -b 15- | sed \'s/[^ ]*$/XXXXXXXX/\'')
 
 	@cherrypy.expose
 	def entropyAvail(self):
@@ -60,7 +60,7 @@ class ProbeRawApplication(object):
 
 	@cherrypy.expose
 	def ifconfig(self):
-		return commandResponse('/sbin/ifconfig')
+		return commandResponse('/sbin/ifconfig | sed \'s/ [0-9]*[.][0-9.]*/ XXX.XXX.XXX.XXX/g\' | sed \'s/ [0-9a-f]*[:][0-9a-f:]*/ XXXXXXXX/g\'')
 
 	@cherrypy.expose
 	def iostat(self):
