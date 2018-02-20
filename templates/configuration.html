@@ -62,11 +62,6 @@
 				<span class="glyphicon glyphicon-refresh refreshButton" aria-hidden="true" onclick="javascript:refreshNumactlHardware()"></span>
 			</h3>
 			<pre><div id="raw_numactlHardware"></div></pre>
-
-			<h3><tt>mount</tt>
-				<span class="glyphicon glyphicon-refresh refreshButton" aria-hidden="true" onclick="javascript:refreshMount()"></span>
-			</h3>
-			<pre><div id="raw_mount"></div></pre>
 		</div>
 	</div>
 
@@ -75,13 +70,11 @@
 	<script>
 		function refreshUname() { $('#raw_uname').load('/raw/uname'); }
 		function refreshIfconfig() { $('#raw_ifconfig').load('/raw/ifconfig'); }
-		function refreshMount() { $('#raw_mount').load('/raw/mount'); }
 		function refreshNumactlHardware() { $('#raw_numactlHardware').load('/raw/numactlHardware'); }
 
 		function refresh() {
 			refreshUname();
 			refreshIfconfig();
-			refreshMount();
 			refreshNumactlHardware();
 		}
 

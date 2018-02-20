@@ -67,10 +67,6 @@ class ProbeRawApplication(object):
 		return commandResponse('iostat')
 
 	@cherrypy.expose
-	def mount(self):
-		return commandResponse('mount')
-
-	@cherrypy.expose
 	def netstatTcp(self):
 		return commandResponse('netstat -s -p tcp' if self._isMac else 'netstat -s -t')
 
