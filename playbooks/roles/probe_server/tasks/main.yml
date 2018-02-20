@@ -28,7 +28,7 @@
 
 - name: Installing supporting packages
   apt:
-    name: [numactl]
+    name: [numactl, sysstat]
     state: latest
   tags:
     - probe
