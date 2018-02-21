@@ -39,11 +39,17 @@ class ProbeJsonApplication(object):
 
 	@cherrypy.expose
 	def hardware(self):
+		cpuFrequency = psutil.cpu_freq()
+
 		return jsonResponse({
 			'bootTime': datetime.datetime.fromtimestamp(psutil.boot_time()).strftime('%Y-%m-%d %H:%M:%S'),
-			'cpuCores': psutil.NUM_CPUS,
+			'cpuCores': psutil.cpu_count(),
+			'cpuFrequency': {
+				'current': cpuFrequency.current,
+				'max': cpuFrequency.max,
+				'min': cpuFrequency.min,
+			},
 			'isMac': os.uname().sysname == 'Darwin',
-			'ram': psutil.TOTAL_PHYMEM,
 		})
 
 	@cherrypy.expose
