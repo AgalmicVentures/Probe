@@ -44,7 +44,7 @@ class ProbeJsonApplication(object):
 		return jsonResponse({
 			'bootTime': datetime.datetime.fromtimestamp(psutil.boot_time()).strftime('%Y-%m-%d %H:%M:%S'),
 			'cpuCores': psutil.cpu_count(),
-			'cpuFrequency': {
+			'cpuFrequencyMhz': None if cpuFrequency is None else {
 				'current': cpuFrequency.current,
 				'max': cpuFrequency.max,
 				'min': cpuFrequency.min,
