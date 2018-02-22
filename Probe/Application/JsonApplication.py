@@ -24,6 +24,12 @@ import datetime
 import json
 import os
 import psutil
+import threading
+import time
+
+#Globals so their swaps will be atomic and not require locking
+_hardware = {}
+_status = {}
 
 def jsonResponse(value):
 	cherrypy.response.headers['Content-Type'] = 'application/json'
@@ -31,18 +37,37 @@ def jsonResponse(value):
 
 class ProbeJsonApplication(object):
 
-	@cherrypy.expose
-	def default(self, *args, **kwargs):
-		return jsonResponse({
-			'error': 'API not found',
-		})
+	def __init__(self):
+		self._backgroundUpdate()
 
-	@cherrypy.expose
-	def hardware(self):
+		self._backgroundThread = threading.Thread(target=self._backgroundThread)
+		self._backgroundThread.daemon = True
+		self._backgroundThread.start()
+
+	def _backgroundThread(self):
+		"""
+		The background status checking thread.
+		"""
+		lastUpdate = datetime.datetime.now()
+		while True:
+			time.sleep(0.5)
+
+			now = datetime.datetime.now()
+			if lastUpdate is None or now - lastUpdate > datetime.timedelta(seconds=5):
+				self._backgroundUpdate()
+				lastUpdate = now
+
+	def _backgroundUpdate(self):
+		"""
+		Updates the hardware and status information every 5 seconds.
+		"""
+		#Cache hardware
+		bootTime = datetime.datetime.utcfromtimestamp(psutil.boot_time())
 		cpuFrequency = psutil.cpu_freq()
 
-		return jsonResponse({
-			'bootTime': datetime.datetime.fromtimestamp(psutil.boot_time()).strftime('%Y-%m-%d %H:%M:%S'),
+		global _hardware
+		_hardware = {
+			'bootTime': bootTime.strftime('%Y-%m-%dT%H:%M:%SZ'),
 			'cpuCores': psutil.cpu_count(),
 			'cpuFrequencyMhz': None if cpuFrequency is None else {
 				'current': cpuFrequency.current,
@@ -50,13 +75,9 @@ class ProbeJsonApplication(object):
 				'min': cpuFrequency.min,
 			},
 			'isMac': os.uname().sysname == 'Darwin',
-		})
+		}
 
-	@cherrypy.expose
-	def status(self):
-		bootTime = datetime.datetime.fromtimestamp(psutil.boot_time())
-		now = datetime.datetime.now()
-
+		now = datetime.datetime.utcnow()
 		battery = psutil.sensors_battery()
 		cpuStats = psutil.cpu_stats()
 		cpuTimes = psutil.cpu_times()
@@ -72,7 +93,8 @@ class ProbeJsonApplication(object):
 		except (IOError, ValueError):
 			pass
 
-		return jsonResponse({
+		global _status
+		_status = {
 			'time': now.strftime('%Y-%m-%d %H:%M:%S'),
 			'uptime': int((now - bootTime).total_seconds()),
 			'entropyAvailable': entropyAvailable,
@@ -127,4 +149,18 @@ class ProbeJsonApplication(object):
 				'droppedIn': network.dropin,
 				'droppedOut': network.dropout,
 			},
+		}
+
+	@cherrypy.expose
+	def default(self, *args, **kwargs):
+		return jsonResponse({
+			'error': 'API not found',
 		})
+
+	@cherrypy.expose
+	def hardware(self):
+		return jsonResponse(_hardware)
+
+	@cherrypy.expose
+	def status(self):
+		return jsonResponse(_status)
