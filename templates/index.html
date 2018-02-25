@@ -19,14 +19,12 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
-				<span class="icon-bar"></span>
 			</button>
 			<a class="navbar-brand" href="#"><span class="glyphicon glyphicon-cloud-download" aria-hidden="true" style="font-size: 0.8em"></span> Probe [<tt>%(hostname)s</tt>]</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
 				<li class="active"><a href="#">Status</a></li>
-				<li><a href="/configuration">Configuration</a></li>
 				<li><a href="/help">Help</a></li>
 				<li><a href="/admin">Admin</a></li>
 			</ul>
@@ -48,62 +46,108 @@
 
 	<div class="row">
 		<div class="col-md-6">
-			<h3><tt>date</tt>
-				<span class="glyphicon glyphicon-refresh refreshButton" aria-hidden="true" onclick="javascript:refreshDate()"></span>
+			<h3><tt>Globals</tt>
+				<span class="glyphicon glyphicon-refresh refreshButton" aria-hidden="true" onclick="javascript:refresh()"></span>
 			</h3>
-			<pre><div id="raw_date"></div></pre>
+			<table class="table table-striped">
+				<tr><th>Local Time</th><td><span id="localTime"></span></td></tr>
+				<tr><th>Uptime</th><td><span id="uptime"></span></td></tr>
+				<tr><th>Entropy Available (bits)</th><td><span id="entropyAvailable"></span></td></tr>
+			</table>
 
-			<h3><tt>uptime</tt>
-				<span class="glyphicon glyphicon-refresh refreshButton" aria-hidden="true" onclick="javascript:refreshUptime()"></span>
+			<h3><tt>CPU</tt>
+				<span class="glyphicon glyphicon-refresh refreshButton" aria-hidden="true" onclick="javascript:refresh()"></span>
 			</h3>
-			<pre><div id="raw_uptime"></div></pre>
+			<table class="table table-striped">
+				<tr><th>Use (%%)</th><td><span id="cpuPercent"></span></td></tr>
+				<tr><th colspan="2">Stats</th></tr>
+				<tr><td>Context Switches</td><td><span id="cpuStatsContextSwitches"></span></td></tr>
+				<tr><td>Interrupts</td><td><span id="cpuStatsInterrupts"></span></td></tr>
+				<tr><td>Soft Interrupts</td><td><span id="cpuStatsSoftInterrupts"></span></td></tr>
+				<tr><td>Syscalls</td><td><span id="cpuStatsSyscalls"></span></td></tr>
+				<tr><th colspan="2">Times</th></tr>
+				<tr><td>User</td><td><span id="cpuTimesUser"></span></td></tr>
+				<tr><td>System</td><td><span id="cpuTimesSystem"></span></td></tr>
+				<tr><td>Nice</td><td><span id="cpuTimesNice"></span></td></tr>
+				<tr><td>Idle</td><td><span id="cpuTimesIdle"></span></td></tr>
+			</table>
 
-			<h3><tt>cat /proc/sys/kernel/random/entropy_avail</tt>
-				<span class="glyphicon glyphicon-refresh refreshButton" aria-hidden="true" onclick="javascript:refreshEntropyAvail()"></span>
-			</h3>
-			<pre><div id="raw_entropy_avail"></div></pre>
-
-			<h3><tt>df (anonymized)</tt>
-				<span class="glyphicon glyphicon-refresh refreshButton" aria-hidden="true" onclick="javascript:refreshDf()"></span>
-			</h3>
-			<pre><div id="raw_df"></div></pre>
-
-			<h3><tt>iostat</tt>
-				<span class="glyphicon glyphicon-refresh refreshButton" aria-hidden="true" onclick="javascript:refreshIostat()"></span>
-			</h3>
-			<pre><div id="raw_iostat"></div></pre>
-
-			<h3><tt>netstat</tt> (UDP)
-				<span class="glyphicon glyphicon-refresh refreshButton" aria-hidden="true" onclick="javascript:refreshNetstatUdp()"></span>
-			</h3>
-			<pre><div id="raw_netstat_udp"></div></pre>
 		</div>
 		<div class="col-md-6">
-			<h3><tt>netstat</tt> (TCP)
-				<span class="glyphicon glyphicon-refresh refreshButton" aria-hidden="true" onclick="javascript:refreshNetstatTcp()"></span>
-			</h3><pre><div id="raw_netstat_tcp"></div></pre>
+			<h3><tt>Memory</tt>
+				<span class="glyphicon glyphicon-refresh refreshButton" aria-hidden="true" onclick="javascript:refresh()"></span>
+			</h3>
+			<table class="table table-striped">
+				<tr><th>Total (GB)</th><td><span id="memoryTotal"></span></td></tr>
+				<tr><th>Used (GB)</th><td><span id="memoryUsed"></span></td></tr>
+				<tr><th>Free (GB)</th><td><span id="memoryFree"></span></td></tr>
+				<tr><th>Available (GB)</th><td><span id="memoryAvailable"></span></td></tr>
+			</table>
+
+			<h3><tt>Disk IO</tt>
+				<span class="glyphicon glyphicon-refresh refreshButton" aria-hidden="true" onclick="javascript:refresh()"></span>
+			</h3>
+			<table class="table table-striped">
+				<tr><th></th><th>Read</th><th>Write</th></tr>
+				<tr><th>#</th><td><span id="diskIoReadCount"></span></td><td><span id="diskIoWriteCount"></span></td></tr>
+				<tr><th>Bytes</th><td><span id="diskIoReadBytes"></span></td><td><span id="diskIoWriteBytes"></span></td></tr>
+				<tr><th>Time</th><td><span id="diskIoReadTime"></span></td><td><span id="diskIoWriteTime"></span></td></tr>
+			</table>
+
+			<h3><tt>Network IO</tt>
+				<span class="glyphicon glyphicon-refresh refreshButton" aria-hidden="true" onclick="javascript:refresh()"></span>
+			</h3>
+			<table class="table table-striped">
+				<tr><th></th><th>In</th><th>Out</th></tr>
+				<tr><th>Bytes</th><td><span id="networkBytesIn"></span></td><td><span id="networkBytesOut"></span></td></tr>
+				<tr><th>Packets</th><td><span id="networkPacketsIn"></span></td><td><span id="networkPacketsOut"></span></td></tr>
+				<tr><th>Drops</th><td><span id="networkDropsIn"></span></td><td><span id="networkDropsOut"></span></td></tr>
+				<tr><th>Errors</th><td><span id="networkErrorsIn"></span></td><td><span id="networkErrorsOut"></span></td></tr>
+			</table>
 		</div>
 	</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 	<script>
-		function refreshDate() { $('#raw_date').load('/raw/date'); }
-		function refreshUptime() { $('#raw_uptime').load('/raw/uptime'); }
-		function refreshEntropyAvail() { $('#raw_entropy_avail').load('/raw/entropyAvail'); }
-		function refreshDf() { $('#raw_df').load('/raw/df'); }
-		function refreshIostat() { $('#raw_iostat').load('/raw/iostat'); }
-		function refreshNetstatTcp() { $('#raw_netstat_tcp').load('/raw/netstatTcp'); }
-		function refreshNetstatUdp() { $('#raw_netstat_udp').load('/raw/netstatUdp'); }
-
 		function refresh() {
-			refreshDate();
-			refreshUptime();
-			refreshEntropyAvail();
-			refreshDf();
-			refreshIostat();
-			refreshNetstatUdp();
-			refreshNetstatTcp();
+			$.getJSON('/api/status', function(status) {
+				$('#localTime').text('TODO');
+				$('#uptime').text(status.uptime);
+				$('#entropyAvailable').text(status.entropyAvailable);
+
+				var GB = 1024 * 1024 * 1024;
+				$('#memoryTotal').text(status.virtualMemory.total / GB);
+				$('#memoryUsed').text(status.virtualMemory.used / GB);
+				$('#memoryFree').text(status.virtualMemory.free / GB);
+				$('#memoryAvailable').text(status.virtualMemory.available / GB);
+
+				$('#cpuPercent').text(status.cpuPercent);
+				$('#cpuStatsContextSwitches').text(status.cpuStats.contextSwitches);
+				$('#cpuStatsInterrupts').text(status.cpuStats.interrupts);
+				$('#cpuStatsSoftInterrupts').text(status.cpuStats.softInterrupts);
+				$('#cpuStatsSyscalls').text(status.cpuStats.syscalls);
+				$('#cpuTimesUser').text(status.cpuTimes.user);
+				$('#cpuTimesSystem').text(status.cpuTimes.system);
+				$('#cpuTimesNice').text(status.cpuTimes.nice);
+				$('#cpuTimesIdle').text(status.cpuTimes.idle);
+
+				$('#diskIoReadCount').text(status.diskIoCounters.readCount);
+				$('#diskIoReadBytes').text(status.diskIoCounters.readBytes);
+				$('#diskIoReadTime').text(status.diskIoCounters.readTime);
+				$('#diskIoWriteCount').text(status.diskIoCounters.writeCount);
+				$('#diskIoWriteBytes').text(status.diskIoCounters.writeBytes);
+				$('#diskIoWriteTime').text(status.diskIoCounters.writeTime);
+
+				$('#networkBytesIn').text(status.network.bytesReceived);
+				$('#networkBytesOut').text(status.network.bytesSent);
+				$('#networkPacketsIn').text(status.network.packetsReceived);
+				$('#networkPacketsOut').text(status.network.packetsSent);
+				$('#networkDropsIn').text(status.network.dropsIn);
+				$('#networkDropsOut').text(status.network.dropsOut);
+				$('#networkErrorsIn').text(status.network.errorsIn);
+				$('#networkErrorsOut').text(status.network.errorsOut);
+			});
 		}
 
 		function autoRefresh() {

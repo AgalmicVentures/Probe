@@ -35,7 +35,7 @@ def jsonResponse(value):
 	cherrypy.response.headers['Content-Type'] = 'application/json'
 	return json.dumps(value, indent=4, sort_keys=True).encode('utf8')
 
-class ProbeJsonApplication(object):
+class ProbeApiApplication(object):
 
 	def __init__(self):
 		self._backgroundUpdate()
@@ -140,14 +140,14 @@ class ProbeJsonApplication(object):
 				'writeTime': diskIoCounters.write_time,
 			},
 			'network': {
-				'bytesSent': network.bytes_sent,
 				'bytesReceived': network.bytes_recv,
-				'packetsSent': network.packets_sent,
+				'bytesSent': network.bytes_sent,
 				'packetsReceived': network.packets_recv,
-				'errorIn': network.errin,
-				'errorOut': network.errout,
-				'droppedIn': network.dropin,
-				'droppedOut': network.dropout,
+				'packetsSent': network.packets_sent,
+				'errorsIn': network.errin,
+				'errorsOut': network.errout,
+				'dropsIn': network.dropin,
+				'dropsOut': network.dropout,
 			},
 		}
 
