@@ -81,6 +81,7 @@
   systemd:
     name: probe
     state: started
+    enabled: yes
     daemon_reload: yes
   tags:
     - probe
