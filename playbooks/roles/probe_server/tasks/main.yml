@@ -56,7 +56,7 @@
 
 - name: Creating virtual environment
   pip:
-    virtualenv: /home/probe/Code/OpenSource/Probe/myenv
+    virtualenv: /home/probe/Code/OpenSource/Probe/env
     virtualenv_command: pyvenv
     requirements: /home/probe/Code/OpenSource/Probe/requirements.txt
   become: yes
