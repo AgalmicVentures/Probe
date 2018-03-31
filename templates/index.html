@@ -50,7 +50,7 @@
 			</h3>
 			<table class="table table-striped">
 				<tr><th>Local Time</th><td><span id="localTime"></span></td></tr>
-				<tr><th>Uptime</th><td><span id="uptime"></span></td></tr>
+				<tr><th>Uptime (s)</th><td><span id="uptime"></span></td></tr>
 				<tr><th>Entropy Available (bits)</th><td><span id="entropyAvailable"></span></td></tr>
 			</table>
 
@@ -64,7 +64,7 @@
 				<tr><td>Interrupts</td><td><span id="cpuStatsInterrupts"></span></td></tr>
 				<tr><td>Soft Interrupts</td><td><span id="cpuStatsSoftInterrupts"></span></td></tr>
 				<tr><td>Syscalls</td><td><span id="cpuStatsSyscalls"></span></td></tr>
-				<tr><th colspan="2">Times</th></tr>
+				<tr><th colspan="2">Times (s)</th></tr>
 				<tr><td>User</td><td><span id="cpuTimesUser"></span></td></tr>
 				<tr><td>System</td><td><span id="cpuTimesSystem"></span></td></tr>
 				<tr><td>Nice</td><td><span id="cpuTimesNice"></span></td></tr>
@@ -111,7 +111,7 @@
 	<script>
 		function refresh() {
 			$.getJSON('/api/status', function(status) {
-				$('#localTime').text('TODO');
+				$('#localTime').text(status.time);
 				$('#uptime').text(status.uptime);
 				$('#entropyAvailable').text(status.entropyAvailable);
 
