@@ -25,7 +25,7 @@
 
 ##### Settings #####
 
-COMMAND=Probe/__init__.py
+COMMAND=Probe/Server.py
 
 ##### Helpers #####
 

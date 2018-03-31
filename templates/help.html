@@ -3,7 +3,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
 
-	<title>Probe - %(title)s [%(hostname)s]</title>
+	<title>Probe - {{ title }} [{{ hostname }}]</title>
 </head>
 <body>
 
@@ -16,7 +16,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#"><span class="glyphicon glyphicon-cloud-download" aria-hidden="true" style="font-size: 0.8em"></span> Probe [<tt>%(hostname)s</tt>]</a>
+			<a class="navbar-brand" href="#"><span class="glyphicon glyphicon-cloud-download" aria-hidden="true" style="font-size: 0.8em"></span> Probe [<tt>{{ hostname }}</tt>]</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
@@ -31,7 +31,7 @@
 <br />
 
 <div class="container">
-	<h1>%(title)s</h1>
+	<h1>{{ title }}</h1>
 	<h3>JSON API's</h3>
 	<ul>
 		<li><a href="/api/hardware">Hardware</a></li>

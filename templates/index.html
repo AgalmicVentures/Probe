@@ -7,7 +7,7 @@
 	span.refreshButton { font-size: small; text-align: right; float: right; position: relative; top: 6pt }
 	</style>
 
-	<title>Probe - %(title)s [%(hostname)s]</title>
+	<title>Probe - {{ title }} [{{ hostname }}]</title>
 </head>
 <body>
 
@@ -20,7 +20,7 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#"><span class="glyphicon glyphicon-cloud-download" aria-hidden="true" style="font-size: 0.8em"></span> Probe [<tt>%(hostname)s</tt>]</a>
+			<a class="navbar-brand" href="#"><span class="glyphicon glyphicon-cloud-download" aria-hidden="true" style="font-size: 0.8em"></span> Probe [<tt>{{ hostname }}</tt>]</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
@@ -35,7 +35,7 @@
 <br />
 
 <div class="container">
-	<h1>%(title)s</h1>
+	<h1>{{ title }}</h1>
 
 	<button class="btn btn-success" onclick="javascript:refresh()">
 		<span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
@@ -58,7 +58,7 @@
 				<span class="glyphicon glyphicon-refresh refreshButton" aria-hidden="true" onclick="javascript:refresh()"></span>
 			</h3>
 			<table class="table table-condensed table-striped">
-				<tr><th>Use (%%)</th><td><span id="cpuPercent"></span></td></tr>
+				<tr><th>Use (%)</th><td><span id="cpuPercent"></span></td></tr>
 				<tr><th colspan="2">Stats</th></tr>
 				<tr><td>Context Switches</td><td><span id="cpuStatsContextSwitches"></span></td></tr>
 				<tr><td>Interrupts</td><td><span id="cpuStatsInterrupts"></span></td></tr>
