@@ -34,7 +34,7 @@
 <br />
 <br />
 
-<div class="container" style="width: 90%%">
+<div class="container">
 	<h1>%(title)s</h1>
 
 	<button class="btn btn-success" onclick="javascript:refresh()">
@@ -45,19 +45,19 @@
 
 	<div class="row">
 		<div class="col-md-6">
-			<h3><tt>Globals</tt>
+			<h3>Globals
 				<span class="glyphicon glyphicon-refresh refreshButton" aria-hidden="true" onclick="javascript:refresh()"></span>
 			</h3>
-			<table class="table table-striped">
+			<table class="table table-condensed table-striped">
 				<tr><th>Local Time</th><td><span id="localTime"></span></td></tr>
 				<tr><th>Uptime (s)</th><td><span id="uptime"></span></td></tr>
 				<tr><th>Entropy Available (bits)</th><td><span id="entropyAvailable"></span></td></tr>
 			</table>
 
-			<h3><tt>CPU</tt>
+			<h3>CPU
 				<span class="glyphicon glyphicon-refresh refreshButton" aria-hidden="true" onclick="javascript:refresh()"></span>
 			</h3>
-			<table class="table table-striped">
+			<table class="table table-condensed table-striped">
 				<tr><th>Use (%%)</th><td><span id="cpuPercent"></span></td></tr>
 				<tr><th colspan="2">Stats</th></tr>
 				<tr><td>Context Switches</td><td><span id="cpuStatsContextSwitches"></span></td></tr>
@@ -73,30 +73,30 @@
 
 		</div>
 		<div class="col-md-6">
-			<h3><tt>Memory</tt>
+			<h3>Memory
 				<span class="glyphicon glyphicon-refresh refreshButton" aria-hidden="true" onclick="javascript:refresh()"></span>
 			</h3>
-			<table class="table table-striped">
+			<table class="table table-condensed table-striped">
 				<tr><th>Total (GB)</th><td><span id="memoryTotal"></span></td></tr>
 				<tr><th>Used (GB)</th><td><span id="memoryUsed"></span></td></tr>
 				<tr><th>Free (GB)</th><td><span id="memoryFree"></span></td></tr>
 				<tr><th>Available (GB)</th><td><span id="memoryAvailable"></span></td></tr>
 			</table>
 
-			<h3><tt>Disk IO</tt>
+			<h3>Disk IO
 				<span class="glyphicon glyphicon-refresh refreshButton" aria-hidden="true" onclick="javascript:refresh()"></span>
 			</h3>
-			<table class="table table-striped">
+			<table class="table table-condensed table-striped">
 				<tr><th></th><th>Read</th><th>Write</th></tr>
 				<tr><th>#</th><td><span id="diskIoReadCount"></span></td><td><span id="diskIoWriteCount"></span></td></tr>
 				<tr><th>Bytes</th><td><span id="diskIoReadBytes"></span></td><td><span id="diskIoWriteBytes"></span></td></tr>
 				<tr><th>Time</th><td><span id="diskIoReadTime"></span></td><td><span id="diskIoWriteTime"></span></td></tr>
 			</table>
 
-			<h3><tt>Network IO</tt>
+			<h3>Network IO
 				<span class="glyphicon glyphicon-refresh refreshButton" aria-hidden="true" onclick="javascript:refresh()"></span>
 			</h3>
-			<table class="table table-striped">
+			<table class="table table-condensed table-striped">
 				<tr><th></th><th>In</th><th>Out</th></tr>
 				<tr><th>Bytes</th><td><span id="networkBytesIn"></span></td><td><span id="networkBytesOut"></span></td></tr>
 				<tr><th>Packets</th><td><span id="networkPacketsIn"></span></td><td><span id="networkPacketsOut"></span></td></tr>
@@ -115,11 +115,12 @@
 				$('#uptime').text(status.uptime);
 				$('#entropyAvailable').text(status.entropyAvailable);
 
+				var n = 2;
 				var GB = 1024 * 1024 * 1024;
-				$('#memoryTotal').text(status.virtualMemory.total / GB);
-				$('#memoryUsed').text(status.virtualMemory.used / GB);
-				$('#memoryFree').text(status.virtualMemory.free / GB);
-				$('#memoryAvailable').text(status.virtualMemory.available / GB);
+				$('#memoryTotal').text((status.virtualMemory.total / GB).toFixed(n));
+				$('#memoryUsed').text((status.virtualMemory.used / GB).toFixed(n));
+				$('#memoryFree').text((status.virtualMemory.free / GB).toFixed(n));
+				$('#memoryAvailable').text((status.virtualMemory.available / GB).toFixed(n));
 
 				$('#cpuPercent').text(status.cpuPercent);
 				$('#cpuStatsContextSwitches').text(status.cpuStats.contextSwitches);
