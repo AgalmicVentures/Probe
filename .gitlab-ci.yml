@@ -33,7 +33,18 @@ functional_test_job:
   script:
     #Run on a different port since the CI server might be monitored too
     - ./start.sh -p 17182
-    - curl http://localhost:17182/json/status
+
+    #Existing endpoints
+    - curl -f http://localhost:17182/
+    - curl -f http://localhost:17182/help
+    - curl -f http://localhost:17182/api/hardware
+    - curl -f http://localhost:17182/api/status
+
+    #404
+    - "! curl -f http://localhost:17182/asdf"
+    - "! curl -f http://localhost:17182/api/"
+    - "! curl -f http://localhost:17182/api/asdf"
+
     - ./stop.sh
   only:
     - master
