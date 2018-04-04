@@ -49,7 +49,7 @@ function start {
 	fi
 
 	echo "Starting..."
-	nohup $PROCESS &
+	nohup $PROCESS $@ &
 
 	for N in 0 1 2 3 4 5 6 7 8 9; do
 		PROCESSES=$(get_processes)

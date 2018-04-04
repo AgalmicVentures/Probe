@@ -20,18 +20,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import argparse
 import datetime
 import flask
 import io
 import psutil
 import socket
+import sys
 import threading
 import time
 
 #Make sure the path is set up
 import inspect
 import os
-import sys
 _currentFile = os.path.abspath(inspect.getfile(inspect.currentframe()))
 _currentDir = os.path.dirname(_currentFile)
 _parentDir = os.path.dirname(_currentDir)
@@ -180,17 +181,26 @@ def hardware():
 def status():
 	return flask.jsonify(_status)
 
-def main():
+def main(argv):
 	"""
 	The main function for the web server.
 	"""
+	#Parse arguments
+	parser = argparse.ArgumentParser(description='Probe Server')
+	parser.add_argument('-p', '--port', type=int, default=27182,
+		help='Port to run on.')
+
+	if argv is None:
+		argv = sys.argv
+	arguments = parser.parse_args(argv[1:])
+
 	_backgroundUpdate()
 	backgroundThread = threading.Thread(target=_backgroundThread)
 	backgroundThread.daemon = True
 	backgroundThread.start()
 
-	app.run(port=27182)
+	app.run(port=arguments.port)
 	return 0
 
 if __name__ == '__main__':
-	sys.exit(main())
+	sys.exit(main(sys.argv))
