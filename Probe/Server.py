@@ -171,7 +171,10 @@ def help():
 
 @app.errorhandler(404)
 def default(*args, **kwargs):
-	return '<html><body><h1>Probe - Page Not Found</h1></body></html>'
+	return flask.Response(
+		'<html><body><h1>Probe - Page Not Found</h1></body></html>',
+		status=404,
+	)
 
 @app.route('/api/hardware')
 def hardware():
