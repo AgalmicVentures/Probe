@@ -54,11 +54,6 @@ def _backgroundUpdate():
 	#Cache hardware
 	bootTime = datetime.datetime.utcfromtimestamp(psutil.boot_time())
 	cpuFrequency = psutil.cpu_freq()
-
-	global _hardware
-	_hardware = {
-	}
-
 	now = datetime.datetime.utcnow()
 	battery = psutil.sensors_battery()
 	cpuStats = psutil.cpu_stats()
@@ -75,6 +70,11 @@ def _backgroundUpdate():
 	except (IOError, ValueError):
 		pass
 
+	#This swap is atomic, so no locking is required. Disassembling with `dis.dis`:
+	#        436 BUILD_CONST_KEY_MAP     16
+	#        438 STORE_GLOBAL            61 (_status)  <--- one atomic operation
+	#        440 LOAD_CONST               1 (None)
+	#        442 RETURN_VALUE
 	global _status
 	_status = {
 		'hostname': _hostname,
