@@ -54,7 +54,7 @@
 				<tr><th>Entropy Available (bits)</th><td><span id="entropyAvailable"></span></td></tr>
 			</table>
 
-			<h3>CPU
+			<h3>CPU <span id="cpuInfo"></span>
 				<span class="glyphicon glyphicon-refresh refreshButton" aria-hidden="true" onclick="javascript:refresh()"></span>
 			</h3>
 			<table class="table table-condensed table-striped">
@@ -121,6 +121,10 @@
 				$('#memoryUsed').text((status.virtualMemory.used / GB).toFixed(n));
 				$('#memoryFree').text((status.virtualMemory.free / GB).toFixed(n));
 				$('#memoryAvailable').text((status.virtualMemory.available / GB).toFixed(n));
+
+				var cpuFrequencyStr = status.cpuFrequencyMhz === null ? "" :
+					" @ " + status.cpuFrequencyMhz.current + "MHz";
+				$('#cpuInfo').text("(" + status.cpuCores.toString() + " cores" + cpuFrequencyStr + ")");
 
 				$('#cpuPercent').text(status.cpuPercent);
 				$('#cpuStatsContextSwitches').text(status.cpuStats.contextSwitches);
