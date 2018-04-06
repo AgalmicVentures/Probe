@@ -86,6 +86,7 @@ def _backgroundUpdate():
 
 	global _status
 	_status = {
+		'hostname': _hostname,
 		'time': now.strftime('%Y-%m-%d %H:%M:%S'),
 		'uptime': int((now - bootTime).total_seconds()),
 		'entropyAvailable': entropyAvailable,
