@@ -37,7 +37,6 @@ functional_test_job:
     #Existing endpoints
     - curl -f http://localhost:17182/
     - curl -f http://localhost:17182/help
-    - curl -f http://localhost:17182/api/hardware
     - curl -f http://localhost:17182/api/status
 
     #404
