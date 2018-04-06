@@ -44,8 +44,7 @@ app = flask.Flask('Probe',
 
 _hostname = socket.gethostname()
 
-#Globals so their swaps will be atomic and not require locking
-_hardware = {}
+#Global so the swaps will be atomic and not require locking
 _status = {}
 
 def _backgroundUpdate():
@@ -58,14 +57,6 @@ def _backgroundUpdate():
 
 	global _hardware
 	_hardware = {
-		'bootTime': bootTime.strftime('%Y-%m-%dT%H:%M:%SZ'),
-		'cpuCores': psutil.cpu_count(),
-		'cpuFrequencyMhz': None if cpuFrequency is None else {
-			'current': cpuFrequency.current,
-			'max': cpuFrequency.max,
-			'min': cpuFrequency.min,
-		},
-		'isMac': os.uname().sysname == 'Darwin',
 	}
 
 	now = datetime.datetime.utcnow()
@@ -87,13 +78,23 @@ def _backgroundUpdate():
 	global _status
 	_status = {
 		'hostname': _hostname,
+		'isMac': os.uname().sysname == 'Darwin',
+
 		'time': now.strftime('%Y-%m-%d %H:%M:%S'),
+		'bootTime': bootTime.strftime('%Y-%m-%dT%H:%M:%SZ'),
 		'uptime': int((now - bootTime).total_seconds()),
 		'entropyAvailable': entropyAvailable,
+
 		'battery': None if battery is None else {
 			'percent': battery.percent,
 			'pluggedIn': battery.power_plugged,
 			'secsleft': battery.secsleft,
+		},
+		'cpuCores': psutil.cpu_count(),
+		'cpuFrequencyMhz': None if cpuFrequency is None else {
+			'current': cpuFrequency.current,
+			'max': cpuFrequency.max,
+			'min': cpuFrequency.min,
 		},
 		'cpuPercent': psutil.cpu_percent(interval=0.1),
 		'cpuStats': {
@@ -176,10 +177,6 @@ def default(*args, **kwargs):
 		'<html><body><h1>Probe - Page Not Found</h1></body></html>',
 		status=404,
 	)
-
-@app.route('/api/hardware')
-def hardware():
-	return flask.jsonify(_hardware)
 
 @app.route('/api/status')
 def status():

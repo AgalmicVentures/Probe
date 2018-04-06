@@ -5,16 +5,6 @@ the configuration and status of its host.
 
 ## API's
 
-### `/json/hardware`
-Returns metadata about the hardware configuration of the host:
-
-    {
-        "bootTime": "2015-04-01 16:13:36",
-        "cpuCores": 8,
-        "isMac": true,
-        "ram": 34359738368
-    }
-
 ### `/json/status`
 Returns the status of the host:
 
