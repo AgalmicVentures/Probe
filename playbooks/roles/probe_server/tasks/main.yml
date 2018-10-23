@@ -28,8 +28,16 @@
 
 - name: Installing supporting packages
   apt:
-    name: [numactl, sysstat]
+    name: [sysstat]
     state: latest
+  tags:
+    - probe
+
+- name: Installing supporting packages (except on Raspbian)
+  apt:
+    name: [numactl]
+    state: latest
+  when: ansible_architecture != 'armv7l'
   tags:
     - probe
 
