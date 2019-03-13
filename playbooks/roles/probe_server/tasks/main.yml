@@ -37,7 +37,7 @@
   apt:
     name: [numactl]
     state: latest
-  when: ansible_architecture != 'armv7l'
+  when: ansible_architecture not in ['armv6l', 'armv7l']
   tags:
     - probe
 
