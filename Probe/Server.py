@@ -53,7 +53,10 @@ def _backgroundUpdate():
 	"""
 	#Cache hardware
 	bootTime = datetime.datetime.utcfromtimestamp(psutil.boot_time())
-	cpuFrequency = psutil.cpu_freq()
+	try:
+		cpuFrequency = psutil.cpu_freq()
+	except FileNotFoundError:
+		cpuFrequency = None
 	now = datetime.datetime.utcnow()
 	battery = psutil.sensors_battery()
 	cpuStats = psutil.cpu_stats()
